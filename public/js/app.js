@@ -5313,8 +5313,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mounted: function mounted() {}
+  data: function data() {
+    return {
+      weekday: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      settings: {}
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/settings').then(function (response) {
+      _this.settings = response.data;
+    })["catch"](function (error) {
+      alert(error.response.data.message);
+    });
+  }
 });
 
 /***/ }),
@@ -28047,28 +28068,82 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container mt-3" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Shop settings"),
-            ]),
+  return _c("div", { staticClass: "container mt-3" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Shop settings")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", [_vm._v("Working days")]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }),
+            _c(
+              "div",
+              { staticClass: "d-flex justify-content-between" },
+              _vm._l(_vm.settings.working_days, function (day, dayNumber) {
+                return _c("div", [
+                  _c("label", { attrs: { for: "day-" + dayNumber } }, [
+                    _vm._v(_vm._s(_vm.weekday[dayNumber])),
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.settings.working_days[dayNumber],
+                        expression: "settings.working_days[dayNumber]",
+                      },
+                    ],
+                    attrs: { type: "checkbox", id: "day-" + dayNumber },
+                    domProps: {
+                      value: day,
+                      checked: Array.isArray(
+                        _vm.settings.working_days[dayNumber]
+                      )
+                        ? _vm._i(_vm.settings.working_days[dayNumber], day) > -1
+                        : _vm.settings.working_days[dayNumber],
+                    },
+                    on: {
+                      change: function ($event) {
+                        var $$a = _vm.settings.working_days[dayNumber],
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = day,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.settings.working_days,
+                                dayNumber,
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.settings.working_days,
+                                dayNumber,
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.settings.working_days, dayNumber, $$c)
+                        }
+                      },
+                    },
+                  }),
+                ])
+              }),
+              0
+            ),
           ]),
         ]),
       ]),
-    ])
-  },
-]
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
