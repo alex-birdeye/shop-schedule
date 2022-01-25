@@ -24,4 +24,12 @@ class ShopSettingsService
                                return $setting->data;
                            });
     }
+
+    public function saveAllSettings($settings)
+    {
+        foreach ($settings as $settingName => $data)
+        {
+            ShopSettings::where('setting_name', $settingName)->update(['data' => $data]);
+        }
+    }
 }

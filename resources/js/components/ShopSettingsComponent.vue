@@ -10,9 +10,11 @@
             <div class="d-flex justify-content-between">
               <div v-for="(day, dayNumber) in settings.working_days">
                 <label :for="'day-' + dayNumber">{{weekday[dayNumber]}}</label>
-                <input v-model="settings.working_days[dayNumber]" type="checkbox" :value="day"  :id="'day-' + dayNumber">
+                <input v-model="settings.working_days[dayNumber]" type="checkbox" :value="day" :id="'day-' + dayNumber">
               </div>
             </div>
+
+            <button class="btn btn-sm btn-primary mt-5" @click="saveSettings">Save</button>
           </div>
         </div>
       </div>
@@ -37,6 +39,17 @@
         .catch(error => {
           alert(error.response.data.message)
         })
-    }
+    },
+    methods: {
+      saveSettings() {
+        axios.post('/api/settings', this.settings)
+          .then(() => {
+            alert('Settings saved')
+          })
+          .catch(error => {
+            alert(error.response.data.message)
+          })
+      },
+    },
   }
 </script>

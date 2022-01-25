@@ -5320,6 +5320,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5335,6 +5337,15 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       alert(error.response.data.message);
     });
+  },
+  methods: {
+    saveSettings: function saveSettings() {
+      axios.post('/api/settings', this.settings).then(function () {
+        alert('Settings saved');
+      })["catch"](function (error) {
+        alert(error.response.data.message);
+      });
+    }
   }
 });
 
@@ -28136,6 +28147,15 @@ var render = function () {
                 ])
               }),
               0
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-primary mt-5",
+                on: { click: _vm.saveSettings },
+              },
+              [_vm._v("Save")]
             ),
           ]),
         ]),

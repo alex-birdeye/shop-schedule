@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('is-opened', [ScheduleController::class, 'isOpened']);
 
 Route::get('settings', [SettingsController::class, 'index']);
+Route::post('settings', [SettingsController::class, 'store']);
