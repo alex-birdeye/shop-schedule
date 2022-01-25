@@ -19,13 +19,13 @@
               <div class="mx-2">
                 <label for="working-time-from">From</label>
                 <input v-model="settings.working_hours.from" type="time"
-                       class="form-control form-control-sm input-time bg-success"
+                       class="form-control form-control-sm time-input bg-success"
                        id="working-time-from">
               </div>
               <div class="mx-2">
                 <label for="working-time-to">To</label>
                 <input v-model="settings.working_hours.to" type="time"
-                       class="form-control form-control-sm input-time bg-success" id="working-time-to">
+                       class="form-control form-control-sm time-input bg-success" id="working-time-to">
               </div>
             </div>
 
@@ -34,13 +34,13 @@
               <div class="mx-2">
                 <label for="non-working-time-from">From</label>
                 <input v-model="settings.non_working_hours.from" type="time"
-                       class="form-control form-control-sm input-time bg-danger"
+                       class="form-control form-control-sm time-input bg-danger"
                        id="non-working-time-from">
               </div>
               <div class="mx-2">
                 <label for="non-working-time-to">To</label>
                 <input v-model="settings.non_working_hours.to" type="time"
-                       class="form-control form-control-sm input-time bg-danger" id="non-working-time-to">
+                       class="form-control form-control-sm time-input bg-danger" id="non-working-time-to">
               </div>
             </div>
 
@@ -89,7 +89,7 @@
 </script>
 
 <style scoped>
-  .input-time {
+  .time-input {
     max-width: 100px;
   }
 </style>
