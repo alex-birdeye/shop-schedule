@@ -7,10 +7,25 @@
 
           <div class="card-body">
             <h5>Working days</h5>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-2">
               <div v-for="(day, dayNumber) in settings.working_days">
                 <label :for="'day-' + dayNumber">{{weekday[dayNumber]}}</label>
                 <input v-model="settings.working_days[dayNumber]" type="checkbox" :value="day" :id="'day-' + dayNumber">
+              </div>
+            </div>
+
+            <h5>Working hours</h5>
+            <div class="d-flex mb-2">
+              <div class="mx-2">
+                <label for="working-time-from">From</label>
+                <input v-model="settings.working_hours.from" type="time"
+                       class="form-control form-control-sm input-time"
+                       id="working-time-from">
+              </div>
+              <div class="mx-2">
+                <label for="working-time-to">To</label>
+                <input v-model="settings.working_hours.to" type="time"
+                       class="form-control form-control-sm input-time" id="working-time-to">
               </div>
             </div>
 
@@ -27,7 +42,10 @@
     data() {
       return {
         weekday: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        settings: {}
+        settings: {
+          working_days: {},
+          working_hours: {},
+        },
       }
     }
     ,
@@ -53,3 +71,9 @@
     },
   }
 </script>
+
+<style scoped>
+  .input-time {
+    max-width: 100px;
+  }
+</style>

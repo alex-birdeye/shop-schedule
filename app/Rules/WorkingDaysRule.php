@@ -42,6 +42,6 @@ class WorkingDaysRule implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'Invalid weekdays.';
     }
 }

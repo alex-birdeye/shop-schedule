@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveSettingsRequest;
-use App\Models\ShopSettings;
 use App\Services\ShopSettingsService;
 use Illuminate\Http\Request;
 
@@ -17,7 +16,7 @@ class SettingsController extends Controller
     }
 
 
-    public function index(Request $request)
+    public function index()
     {
         return $this->shopSettingsService->getAllSettings();
     }
