@@ -56,10 +56,80 @@ class ScheduleService
 
     private function isWorkingHours($dateToCheck, $timezone)
     {
-        $workingHours = ShopSettings::select('data')->where('setting_name', 'working_hours')->first()->data;
-        $from            = Carbon::parse($dateToCheck->format('Y-m-d') . ' ' . $workingHours['from'], $timezone);
-        $to              = Carbon::parse($dateToCheck->format('Y-m-d') . ' ' . $workingHours['to'], $timezone);
+        return ($this->isWorkingHoursStarted($dateToCheck, $timezone) &&
+                !$this->isWorkingHoursEnded($dateToCheck, $timezone));
+    }
 
-        return ($dateToCheck >= $from && $dateToCheck <= $to->endOfMinute());
+    public function willOpen($dateToCheckTimestamp, $timezone)
+    {
+        $dateToCheck = Carbon::createFromTimestamp($dateToCheckTimestamp, $timezone);
+        $nearestDate = null;
+
+        if (!$this->isWorkingDay($dateToCheck) || $this->isWorkingHoursEnded($dateToCheck, $timezone))
+        {
+            $nearestDate = $this->findNearestWorkingDay($dateToCheck);
+        }
+
+        if ($this->isNonWorkingHours($dateToCheck, $timezone) || !$this->isWorkingHoursStarted($dateToCheck, $timezone))
+        {
+            $nearestDate = $this->findNearestWorkingHour($dateToCheck);
+        }
+
+        return $dateToCheck->diffForHumans($nearestDate, true, false, 2);
+    }
+
+    private function findNearestWorkingDay(Carbon $dateToCheck)
+    {
+        $nearest = $dateToCheck->copy();
+        $nearest->addDay();
+
+        while (!$this->isWorkingDay($nearest))
+        {
+            $nearest->addDay();
+        }
+
+        $workingHoursFrom = ShopSettings::select('data')->where('setting_name', 'working_hours')->first()->data['from'];
+        $from             = explode(':', $workingHoursFrom);
+
+        return $nearest->setTime($from[0], $from[1]);
+    }
+
+    private function findNearestWorkingHour($dateToCheck)
+    {
+        $nonWorkingToCarbon = $dateToCheck->copy();
+        $workingFromCarbon  = $dateToCheck->copy();
+
+        $nonWorkingHoursTo = ShopSettings::select('data')
+                                         ->where('setting_name', 'non_working_hours')->first()->data['to'];
+        $nonWorkingTo      = explode(':', $nonWorkingHoursTo);
+        $nonWorkingToCarbon->setTime($nonWorkingTo[0], $nonWorkingTo[1]);
+
+        $workingHoursFrom = ShopSettings::select('data')
+                                        ->where('setting_name', 'working_hours')->first()->data['from'];
+        $workingFrom      = explode(':', $workingHoursFrom);
+        $workingFromCarbon->setTime($workingFrom[0], $workingFrom[1]);
+
+        if ($dateToCheck < $workingFromCarbon )
+        {
+            return $workingFromCarbon;
+        }
+
+        return $nonWorkingToCarbon;
+    }
+
+    private function isWorkingHoursEnded($dateToCheck, $timezone)
+    {
+        $workingHours = ShopSettings::select('data')->where('setting_name', 'working_hours')->first()->data;
+        $to           = Carbon::parse($dateToCheck->format('Y-m-d') . ' ' . $workingHours['to'], $timezone);
+
+        return $dateToCheck >= $to->endOfMinute();
+    }
+
+    private function isWorkingHoursStarted($dateToCheck, $timezone)
+    {
+        $workingHours = ShopSettings::select('data')->where('setting_name', 'working_hours')->first()->data;
+        $from         = Carbon::parse($dateToCheck->format('Y-m-d') . ' ' . $workingHours['from'], $timezone);
+
+        return $dateToCheck >= $from;
     }
 }

@@ -6,8 +6,13 @@
           <div class="card-header">Shop schedule</div>
 
           <div class="card-body">
-            <p v-if="isOpened" class="alert alert-success">We're opened !</p>
-            <p v-else-if="isOpened != null" class="alert alert-danger">We're closed !</p>
+            <div v-if="isOpened">
+              <p class="alert alert-success">We're opened !</p>
+            </div>
+            <div v-else-if="isOpened != null">
+              <p class="alert alert-danger">We're closed !</p>
+              <p class="alert alert-warning">We will open in {{willOpen}}!</p>
+            </div>
           </div>
         </div>
       </div>
@@ -24,7 +29,8 @@
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
           // timezone: '111'
         },
-        isOpened: null
+        isOpened: null,
+        willOpen: null,
       }
     },
     created() {
@@ -33,6 +39,10 @@
       })
         .then(response => {
           this.isOpened = response.data.is_opened
+
+          if (!this.isOpened) {
+            this.willOpen = response.data.will_open
+          }
         })
         .catch(error => {
           alert(error.response.data.message)
