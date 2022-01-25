@@ -90,6 +90,6 @@
 
 <style scoped>
   .time-input {
-    max-width: 100px;
+    max-width: 120px;
   }
 </style>

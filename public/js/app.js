@@ -10577,7 +10577,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.date-input[data-v-782dcf83] {\n  max-width: 200px;\n}\n.time-input[data-v-782dcf83] {\n  max-width: 100px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.date-input[data-v-782dcf83] {\n  max-width: 200px;\n}\n.time-input[data-v-782dcf83] {\n  max-width: 120px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10601,7 +10601,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.time-input[data-v-585aa469] {\n  max-width: 100px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.time-input[data-v-585aa469] {\n  max-width: 120px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
