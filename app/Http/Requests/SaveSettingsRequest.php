@@ -25,9 +25,11 @@ class SaveSettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'working_days' => ['array', 'size:7',new WorkingDaysRule()],
+            'working_days'       => ['array', 'size:7', new WorkingDaysRule()],
             'working_hours.from' => 'date_format:H:i',
-            'working_hours.to' => 'date_format:H:i'
+            'working_hours.to'   => 'date_format:H:i',
+            'non_working_hours.from' => 'date_format:H:i',
+            'non_working_hours.to'   => 'date_format:H:i'
         ];
     }
 }

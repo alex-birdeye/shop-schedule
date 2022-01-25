@@ -5337,13 +5337,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       weekday: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       settings: {
         working_days: {},
-        working_hours: {}
+        working_hours: {},
+        non_working_hours: {}
       }
     };
   },
@@ -28532,7 +28548,7 @@ var render = function () {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "d-flex justify-content-between mb-2" },
+              { staticClass: "d-flex justify-content-between mb-3" },
               _vm._l(_vm.settings.working_days, function (day, dayNumber) {
                 return _c("div", [
                   _c("label", { attrs: { for: "day-" + dayNumber } }, [
@@ -28593,7 +28609,7 @@ var render = function () {
             _vm._v(" "),
             _c("h5", [_vm._v("Working hours")]),
             _vm._v(" "),
-            _c("div", { staticClass: "d-flex mb-2" }, [
+            _c("div", { staticClass: "d-flex mb-3" }, [
               _c("div", { staticClass: "mx-2" }, [
                 _c("label", { attrs: { for: "working-time-from" } }, [
                   _vm._v("From"),
@@ -28608,7 +28624,8 @@ var render = function () {
                       expression: "settings.working_hours.from",
                     },
                   ],
-                  staticClass: "form-control form-control-sm input-time",
+                  staticClass:
+                    "form-control form-control-sm input-time bg-success",
                   attrs: { type: "time", id: "working-time-from" },
                   domProps: { value: _vm.settings.working_hours.from },
                   on: {
@@ -28640,7 +28657,8 @@ var render = function () {
                       expression: "settings.working_hours.to",
                     },
                   ],
-                  staticClass: "form-control form-control-sm input-time",
+                  staticClass:
+                    "form-control form-control-sm input-time bg-success",
                   attrs: { type: "time", id: "working-time-to" },
                   domProps: { value: _vm.settings.working_hours.to },
                   on: {
@@ -28650,6 +28668,76 @@ var render = function () {
                       }
                       _vm.$set(
                         _vm.settings.working_hours,
+                        "to",
+                        $event.target.value
+                      )
+                    },
+                  },
+                }),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("h5", [_vm._v("Non-working hours")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "d-flex mb-3" }, [
+              _c("div", { staticClass: "mx-2" }, [
+                _c("label", { attrs: { for: "non-working-time-from" } }, [
+                  _vm._v("From"),
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.settings.non_working_hours.from,
+                      expression: "settings.non_working_hours.from",
+                    },
+                  ],
+                  staticClass:
+                    "form-control form-control-sm input-time bg-danger",
+                  attrs: { type: "time", id: "non-working-time-from" },
+                  domProps: { value: _vm.settings.non_working_hours.from },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.settings.non_working_hours,
+                        "from",
+                        $event.target.value
+                      )
+                    },
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mx-2" }, [
+                _c("label", { attrs: { for: "non-working-time-to" } }, [
+                  _vm._v("To"),
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.settings.non_working_hours.to,
+                      expression: "settings.non_working_hours.to",
+                    },
+                  ],
+                  staticClass:
+                    "form-control form-control-sm input-time bg-danger",
+                  attrs: { type: "time", id: "non-working-time-to" },
+                  domProps: { value: _vm.settings.non_working_hours.to },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.settings.non_working_hours,
                         "to",
                         $event.target.value
                       )

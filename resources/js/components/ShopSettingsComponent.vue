@@ -7,7 +7,7 @@
 
           <div class="card-body">
             <h5>Working days</h5>
-            <div class="d-flex justify-content-between mb-2">
+            <div class="d-flex justify-content-between mb-3">
               <div v-for="(day, dayNumber) in settings.working_days">
                 <label :for="'day-' + dayNumber">{{weekday[dayNumber]}}</label>
                 <input v-model="settings.working_days[dayNumber]" type="checkbox" :value="day" :id="'day-' + dayNumber">
@@ -15,17 +15,32 @@
             </div>
 
             <h5>Working hours</h5>
-            <div class="d-flex mb-2">
+            <div class="d-flex mb-3">
               <div class="mx-2">
                 <label for="working-time-from">From</label>
                 <input v-model="settings.working_hours.from" type="time"
-                       class="form-control form-control-sm input-time"
+                       class="form-control form-control-sm input-time bg-success"
                        id="working-time-from">
               </div>
               <div class="mx-2">
                 <label for="working-time-to">To</label>
                 <input v-model="settings.working_hours.to" type="time"
-                       class="form-control form-control-sm input-time" id="working-time-to">
+                       class="form-control form-control-sm input-time bg-success" id="working-time-to">
+              </div>
+            </div>
+
+            <h5>Non-working hours</h5>
+            <div class="d-flex mb-3">
+              <div class="mx-2">
+                <label for="non-working-time-from">From</label>
+                <input v-model="settings.non_working_hours.from" type="time"
+                       class="form-control form-control-sm input-time bg-danger"
+                       id="non-working-time-from">
+              </div>
+              <div class="mx-2">
+                <label for="non-working-time-to">To</label>
+                <input v-model="settings.non_working_hours.to" type="time"
+                       class="form-control form-control-sm input-time bg-danger" id="non-working-time-to">
               </div>
             </div>
 
@@ -45,6 +60,7 @@
         settings: {
           working_days: {},
           working_hours: {},
+          non_working_hours: {},
         },
       }
     }
