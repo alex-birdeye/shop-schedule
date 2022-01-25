@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('is-opened', [ScheduleController::class, 'isOpened']);
+Route::get('will-open', [ScheduleController::class, 'willOpen']);
+
+Route::get('settings', [SettingsController::class, 'index']);
+Route::post('settings', [SettingsController::class, 'store']);

@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{{env('APP_NAME')}}</title>
+  <title>Shop settings</title>
 
   <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
 <body>
 <div id="app">
-  <home-component></home-component>
+  <shop-settings-component></shop-settings-component>
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>
 </body>
