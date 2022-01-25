@@ -5278,10 +5278,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mounted: function mounted() {
-    var date = new Date();
-    console.log(date.getDay());
+  data: function data() {
+    return {
+      params: {
+        date_to_check_timestamp: parseInt(Date.now() / 1000),
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone // timezone: '111'
+
+      },
+      isOpened: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/is-opened', {
+      params: this.params
+    }).then(function (response) {
+      _this.isOpened = response.data.is_opened;
+    })["catch"](function (error) {
+      alert(error.response.data.message);
+    });
   }
 });
 
@@ -28489,32 +28507,29 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container mt-3" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Shop schedule"),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("p", { staticClass: "alert alert-success" }, [
-                _vm._v("We're opened !"),
-              ]),
-            ]),
+  return _c("div", { staticClass: "container mt-3" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Shop schedule")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm.isOpened
+              ? _c("p", { staticClass: "alert alert-success" }, [
+                  _vm._v("We're opened !"),
+                ])
+              : _vm.isOpened != null
+              ? _c("p", { staticClass: "alert alert-danger" }, [
+                  _vm._v("We're closed !"),
+                ])
+              : _vm._e(),
           ]),
         ]),
       ]),
-    ])
-  },
-]
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
