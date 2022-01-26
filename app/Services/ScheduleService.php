@@ -41,6 +41,11 @@ class ScheduleService
     {
         $workingDays = ShopSettings::select('data')->where('setting_name', 'working_days')->first()->data;
 
+        if ($dateToCheck->dayOfWeek === 6 && $workingDays[$dateToCheck->dayOfWeek])
+        {
+            return boolval($dateToCheck->weekOfYear%2);
+        }
+
         return $workingDays[$dateToCheck->dayOfWeek];
     }
 
